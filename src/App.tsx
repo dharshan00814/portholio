@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import MatrixBackground from './components/MatrixBackground';
+import Hero from './components/Hero';
 
 type Stat = {
   value: string;
@@ -136,36 +137,8 @@ function Icon({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
-  const [revealedLines, setRevealedLines] = useState<string[]>([]);
-  const [activeLine, setActiveLine] = useState('');
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [profileLoaded, setProfileLoaded] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (lineIndex >= terminalScript.length) {
-      return;
-    }
-
-    const currentLine = terminalScript[lineIndex];
-    const delay = charIndex < currentLine.length ? 28 : 650;
-
-    const timer = window.setTimeout(() => {
-      if (charIndex < currentLine.length) {
-        setActiveLine(currentLine.slice(0, charIndex + 1));
-        setCharIndex((previous) => previous + 1);
-        return;
-      }
-
-      setRevealedLines((previous) => [...previous, currentLine]);
-      setActiveLine('');
-      setLineIndex((previous) => previous + 1);
-      setCharIndex(0);
-    }, delay);
-
-    return () => window.clearTimeout(timer);
-  }, [charIndex, lineIndex]);
+  
 
   return (
     <div className="page-shell">
@@ -198,87 +171,7 @@ function App() {
       </header>
 
       <main>
-        <section className="hero" id="hero">
-          <div className="hero-layout">
-            <div className="hero-media" aria-hidden="true">
-              <div className="hero-video-wrap" aria-hidden="true">
-                <video className="hero-video" src="/animation.mp4" autoPlay loop muted playsInline />
-              </div>
-              <div className="scanlines" />
-              <div className="portrait-frame">
-                <div className="portrait-glow" />
-                <div className="portrait-orbit portrait-orbit-top-left" />
-                <div className="portrait-orbit portrait-orbit-top-right" />
-                <div className="portrait-orbit portrait-orbit-bottom-left" />
-                <div className="portrait-orbit portrait-orbit-bottom-right" />
-                <div className={`portrait-avatar${profileLoaded ? ' portrait-avatar--loaded' : ''}`}>
-                  <div className="portrait-overlay" aria-hidden="true" />
-                  <div className="portrait-overlay portrait-overlay--glitch" aria-hidden="true" />
-                  <div className="portrait-overlay portrait-overlay--scan" aria-hidden="true" />
-                  <img
-                    className="portrait-photo"
-                    src="/profile.jpg"
-                    alt="J.M Dharshan profile portrait"
-                    decoding="async"
-                    onLoad={() => setProfileLoaded(true)}
-                    onError={() => setProfileLoaded(false)}
-                  />
-                  {!profileLoaded ? (
-                    <div className="portrait-placeholder">
-                      <span>J.M</span>
-                      <small>Dharshan</small>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            <div className="hero-copy">
-              <p className="hero-eyebrow">&gt; secure terminal / live status</p>
-              <h1 className="hero-title">J.M Dharshan</h1>
-              <p className="hero-subtitle">CS Student | Aspiring Cybersecurity Engineer</p>
-
-              <div className="terminal-card hero-terminal">
-                <div className="terminal-header">
-                  <span className="terminal-prompt">root@cybersec:~$</span>
-                  <span className="terminal-state">secure session established</span>
-                </div>
-
-                <div className="terminal-body terminal-body--animated" aria-live="polite" aria-atomic="false">
-                  <div className="terminal-line terminal-line--prompt">
-                    <span className="terminal-chevron">&gt;</span>
-                    <span className="terminal-text terminal-text--dim">root@cybersec:~$</span>
-                  </div>
-
-                  {revealedLines.map((line) => (
-                    <div className="terminal-line" key={line}>
-                      <span className="terminal-chevron">&gt;</span>
-                      <span className="terminal-text">{line}</span>
-                    </div>
-                  ))}
-
-                  {lineIndex < terminalScript.length ? (
-                    <div className="terminal-line terminal-line--typing terminal-line--active">
-                      <span className="terminal-chevron">&gt;</span>
-                      <span className="terminal-text">
-                        {activeLine}
-                        <span className="terminal-cursor" aria-hidden="true" />
-                      </span>
-                    </div>
-                  ) : (
-                    <div className="terminal-line terminal-line--typing terminal-line--complete terminal-line--active">
-                      <span className="terminal-chevron">&gt;</span>
-                      <span className="terminal-text">
-                        {terminalScript[terminalScript.length - 1]}
-                        <span className="terminal-cursor" aria-hidden="true" />
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Hero />
 
         <section className="stats-strip" aria-label="Highlights">
           {stats.map((stat) => (
@@ -437,6 +330,8 @@ function App() {
           </div>
         </section>
       </main>
+
+      
 
       <footer className="footer">
         <span>CYBERSEC</span>
