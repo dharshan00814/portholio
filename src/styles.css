@@ -81,7 +81,6 @@ html, body, #root {
   /* Prevent horizontal overflow caused by 100vw elements in some browsers */
   overflow-x: hidden;
 }
-}
 
 button,
 a {
