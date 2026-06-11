@@ -160,14 +160,15 @@ function App() {
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
-        <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMobileMenuOpen((s) => !s)}>
-          ☰
-        </button>
-
-        <a className="resume-button" href="/resume-placeholder.txt" download>
-          <Icon>⇩</Icon>
-          Resume
-        </a>
+        <div className="topbar-actions">
+          <a className="resume-button" href="/resume-placeholder.txt" download>
+            <Icon>⇩</Icon>
+            Resume
+          </a>
+          <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMobileMenuOpen((s) => !s)}>
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
+        </div>
       </header>
 
       <main>
