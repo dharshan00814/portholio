@@ -45,7 +45,7 @@ const projects: Project[] = [
     status: 'Completed',
     description: 'A phishing URL detection project that identifies suspicious websites through a clean and accessible interface using machine learning models.',
     stack: ['HTML5', 'CSS3', 'JavaScript', 'Python', 'Flask', 'Machine Learning'],
-    demo: '#',
+    demo: 'https://phishing-detector-topaz.vercel.app/',
     code: '#'
   },
   {
@@ -53,23 +53,25 @@ const projects: Project[] = [
     status: 'Completed',
     description: 'An AI-powered resume screening tool that analyzes candidate profiles and highlights key matches for faster shortlisting using NLP techniques.',
     stack: ['Python', 'NLP', 'Machine Learning'],
-    demo: '#',
+    demo: 'https://ai-pi-ebon.vercel.app/',
     code: '#'
   },
+
   {
     title: 'Tic-Tac-Toe Game',
     status: 'Completed',
     description: 'A fun and interactive Tic-Tac-Toe game built with clean frontend logic, offering smooth gameplay and a responsive user experience.',
     stack: ['HTML5', 'CSS3', 'JavaScript', 'Game Logic'],
-    demo: '#',
+    demo: 'https://tic-tac-tao-delta.vercel.app/',
     code: '#'
   },
+
   {
     title: 'Personal Portfolio',
     status: 'Completed',
     description: 'A live professional portfolio showcasing skills and projects, built with a focus on performance and modern aesthetics.',
     stack: ['HTML5', 'CSS3', 'JavaScript'],
-    demo: '#',
+    demo: 'https://portholio-zeta.vercel.app/',
     code: '#'
   }
 ];
@@ -77,9 +79,9 @@ const projects: Project[] = [
 const certifications: Certification[] = [
   {
     title: 'Python Programming',
-    source: 'HackerRank',
+    source: 'scalar topics',
     detail: 'Actively solving programming challenges',
-    status: 'In Progress',
+    status: 'Completed',
     note: '8 Questions Solved'
   },
   {
@@ -94,14 +96,14 @@ const certifications: Certification[] = [
     source: 'Projects & Practice',
     detail: 'Built multiple web applications',
     status: 'Completed',
-    note: '2024 - Present'
+    note: '2026 - Present'
   },
   {
     title: 'Machine Learning Basics',
     source: 'Self Learning',
     detail: 'Applied ML in phishing detection & resume screening',
     status: 'In Progress',
-    note: '2024'
+    note: '2026 - Present'
   }
 ];
 
@@ -299,7 +301,7 @@ function App() {
         </nav>
 
         <div className="topbar-actions">
-          <a className="resume-button" href="/resume-placeholder.txt" download>
+          <a className="resume-button" href="Dharshan_Resume_Text.txt" download>
             <DownloadIcon />
             Resume
           </a>
