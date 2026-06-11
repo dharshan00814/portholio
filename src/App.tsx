@@ -498,13 +498,13 @@ function App() {
             </div>
 
             <div className="social-row" aria-label="Social links">
-              <a className="social-button" href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <a className="social-button" href="https://github.com/dharshan00814" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <GithubIcon />
               </a>
-              <a className="social-button" href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a className="social-button" href="www.linkedin.com/in/dharshan-jm" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <LinkedinIcon />
               </a>
-              <a className="social-button" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <a className="social-button" href="https://www.instagram.com/candy_heart__2k/?__pwa=1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <InstagramIcon />
               </a>
               <a className="social-button" href="https://wa.me/919894670423" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -517,7 +517,7 @@ function App() {
                 <MailIcon />
                 Send Email
               </a>
-              <a className="action-button secondary" href="/resume-placeholder.txt" download>
+              <a className="action-button secondary" href="c:\Users\Dharshan\Downloads\Resume.pdf" download>
                 <DownloadIcon />
                 Download Resume
               </a>
