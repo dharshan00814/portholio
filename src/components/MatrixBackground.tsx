@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function MatrixBackground(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -11,44 +11,70 @@ export default function MatrixBackground(): JSX.Element {
 
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
-    const fontSizeBase = Math.max(12, Math.floor(Math.min(width / 60, 18)));
-    let columns = Math.floor(width / fontSizeBase);
-    const drops: number[] = Array(columns).fill(1);
+    const fontSize = 14;
+    let columns = Math.floor(width / fontSize);
+    let drops: number[] = [];
+    let speeds: number[] = [];
 
-    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+    const chars =
+      'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF{}[]<>/\\|!@#$%^&*';
+
+    function initDrops() {
+      drops = Array.from({ length: columns }, () =>
+        Math.random() * (height / fontSize)
+      );
+      speeds = Array.from({ length: columns }, () =>
+        0.4 + Math.random() * 0.8
+      );
+    }
+
+    initDrops();
 
     function resize() {
+      if (!canvas || !ctx) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      const newFont = Math.max(10, Math.floor(Math.min(width / 60, 18)));
-      ctx.font = `${newFont}px monospace`;
-      const newCols = Math.floor(width / newFont) || 1;
-      columns = newCols;
-      drops.length = columns;
-      for (let i = 0; i < columns; i++) drops[i] = drops[i] || 1;
+      columns = Math.floor(width / fontSize);
+      initDrops();
     }
 
     function draw() {
       if (!ctx) return;
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, width, height);
-
-      const fontSize = Math.max(12, Math.floor(Math.min(width / 60, 18)));
-      // themed red matrix
-      ctx.fillStyle = '#ff3b3b';
+      ctx.font = `${fontSize}px "Courier New", monospace`;
       ctx.textBaseline = 'top';
-      ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars.charAt(Math.floor(Math.random() * chars.length));
         const x = i * fontSize;
         const y = drops[i] * fontSize;
+
+        // Gradient from red (#EF4444) to orange (#FB923C)
+        const progress = (y / height);
+        const r = Math.round(239 + (251 - 239) * progress);
+        const g = Math.round(68 + (146 - 68) * progress);
+        const b = Math.round(68 + (60 - 68) * progress);
+
+        // Head character is brighter
+        const isHead = Math.random() > 0.92;
+        if (isHead) {
+          ctx.fillStyle = `rgba(255, 200, 150, 0.95)`;
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#FB923C';
+        } else {
+          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.5 + Math.random() * 0.4})`;
+          ctx.shadowBlur = 0;
+          ctx.shadowColor = 'transparent';
+        }
+
         ctx.fillText(text, x, y);
+        ctx.shadowBlur = 0;
 
         if (y > height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i]++;
+        drops[i] += speeds[i];
       }
       raf = requestAnimationFrame(draw);
     }
@@ -62,5 +88,5 @@ export default function MatrixBackground(): JSX.Element {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="matrix-canvas" />;
+  return <canvas ref={canvasRef} className="matrix-canvas" aria-hidden="true" />;
 }
